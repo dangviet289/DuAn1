@@ -45,14 +45,14 @@
             <div class="col-md-6">
                 <div class="form-container">
                     <form method="POST" action="<?= BASE_URL_ADMIN ?>?act=product-update">
-                        <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
+                        <input type="hidden" name="product_id" value="<?= $product['product_id'] ?? $product['id'] ?? '' ?>">
 
                         <div class="mb-3">
                             <label for="name" class="form-label">
                                 <strong>Tên sản phẩm <span class="text-danger">*</span></strong>
                             </label>
                             <input type="text" class="form-control" id="name" name="name" required 
-                                   value="<?= htmlspecialchars($product['name']) ?>">
+                                   value="<?= htmlspecialchars($product['name'] ?? '') ?>">
                         </div>
 
                         <div class="mb-3">
@@ -60,7 +60,7 @@
                                 <strong>Loại <span class="text-danger">*</span></strong>
                             </label>
                             <input type="number" class="form-control" id="type" name="type" required 
-                                   value="<?= $product['type'] ?>">
+                                   value="<?= $product['type'] ?? $product['category_id'] ?? '' ?>">
                         </div>
 
                         <div class="d-flex gap-2">
