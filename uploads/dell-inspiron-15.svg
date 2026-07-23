@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 520" role="img" aria-labelledby="title desc">
+  <title id="title">Dell Inspiron 15 3530</title>
+  <desc id="desc">Minh họa laptop màu đen với màn hình xanh dương.</desc>
+  <defs>
+    <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#082f49"/>
+      <stop offset="0.55" stop-color="#0369a1"/>
+      <stop offset="1" stop-color="#38bdf8"/>
+    </linearGradient>
+    <linearGradient id="deck" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#374151"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0f172a" flood-opacity=".24"/>
+    </filter>
+  </defs>
+  <rect width="700" height="520" rx="42" fill="#f8fafc"/>
+  <g filter="url(#shadow)">
+    <rect x="117" y="66" width="466" height="306" rx="18" fill="#111827"/>
+    <rect x="132" y="81" width="436" height="274" rx="6" fill="url(#screen)"/>
+    <circle cx="350" cy="73" r="3" fill="#475569"/>
+    <path d="M78 382h544l-66 57H144z" fill="url(#deck)"/>
+    <path d="M78 382h544l-17 16H95z" fill="#4b5563"/>
+    <path d="M282 394h136l-15 20H297z" fill="#0f172a"/>
+    <path d="M144 439h412c-11 9-25 14-42 14H186c-17 0-31-5-42-14z" fill="#0b1220"/>
+  </g>
+  <path d="M133 290c102-26 165-82 191-167 50 97 131 143 244 139v93H132z" fill="#fff" opacity=".1"/>
+  <circle cx="458" cy="177" r="62" fill="#fff" opacity=".1"/>
+</svg>
