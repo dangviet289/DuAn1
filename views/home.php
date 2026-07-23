@@ -44,7 +44,7 @@ if (!function_exists('discountPercent')) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         :root {
-            /* Bảng màu trẻ trung, tràn đầy năng lượng và cao cấp */
+            
             --primary-grad: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
             --secondary-grad: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
             --coral-grad: linear-gradient(135deg, #ff4e50 0%, #f9d423 100%);

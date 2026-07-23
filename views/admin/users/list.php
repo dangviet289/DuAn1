@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin · Quản lý sản phẩm</title>
+    <title>Admin · Quản lý người dùng</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -275,13 +275,13 @@
             font-size: 13px;
         }
 
-        table.product-table {
+        table.user-table {
             width: 100%;
             border-collapse: collapse;
             margin: 0;
         }
 
-        .product-table thead th {
+        .user-table thead th {
             background: var(--cream);
             font-size: 11.5px;
             font-weight: 700;
@@ -293,33 +293,38 @@
             text-align: left;
         }
 
-        .product-table tbody tr {
+        .user-table tbody tr {
             border-bottom: 1px solid var(--line);
             transition: background .1s ease;
         }
 
-        .product-table tbody tr:last-child { border-bottom: none; }
+        .user-table tbody tr:last-child { border-bottom: none; }
 
-        .product-table tbody tr:hover { background: #FCFAF4; }
+        .user-table tbody tr:hover { background: #FCFAF4; }
 
-        .product-table tbody td {
+        .user-table tbody td {
             padding: 14px 22px;
             font-size: 14.5px;
             vertical-align: middle;
         }
 
-        .product-id {
+        .user-id {
             font-family: 'JetBrains Mono', monospace;
             font-size: 12.5px;
             color: var(--ink-soft);
         }
 
-        .product-name {
+        .user-name {
             font-weight: 600;
             color: var(--ink);
         }
 
-        .type-badge {
+        .user-email {
+            font-size: 13.5px;
+            color: var(--ink-soft);
+        }
+
+        .role-badge {
             display: inline-block;
             padding: 4px 11px;
             border-radius: 999px;
@@ -327,6 +332,26 @@
             font-weight: 600;
             background: rgba(139, 174, 82, 0.16);
             color: #4C6B2C;
+        }
+
+        .role-badge.admin {
+            background: rgba(232, 116, 59, 0.16);
+            color: #C85A26;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 11px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            background: rgba(139, 174, 82, 0.16);
+            color: #4C6B2C;
+        }
+
+        .status-badge.inactive {
+            background: rgba(178, 58, 58, 0.16);
+            color: #B23A3A;
         }
 
         .row-actions {
@@ -401,9 +426,9 @@
                 <span class="brand-word">VietPhone</span>
             </div>
             <nav>
-                <a href="#" class="active">🧺 Sản phẩm</a>
+                <a href="#">🧺 Sản phẩm</a>
                 <a href="#">📦 Đơn hàng</a>
-                <a href="#">👤 Khách hàng</a>
+                <a href="#" class="active">👤 Khách hàng</a>
                 <a href="#">🏷️ Khuyến mãi</a>
             </nav>
             <div class="back-home">
@@ -415,74 +440,87 @@
             <div class="topbar">
                 <div>
                     <div class="eyebrow">Quản trị cửa hàng</div>
-                    <h1>Quản lý sản phẩm</h1>
-                    <p>Theo dõi, chỉnh sửa và bổ sung hoa quả đang bán trên gian hàng.</p>
+                    <h1>Quản lý người dùng</h1>
+                    <p>Theo dõi, quản lý và kiểm soát tài khoản khách hàng.</p>
                 </div>
-                <a href="<?= BASE_URL_ADMIN ?>?act=product-create" class="btn-add">
-                    + Thêm sản phẩm mới
+                <a href="<?= BASE_URL_ADMIN ?>?act=user-create" class="btn-add">
+                    + Thêm người dùng mới
                 </a>
             </div>
 
             <?php
-                $totalProducts = !empty($products) ? count($products) : 0;
-                $typeCount = 0;
-                if (!empty($products)) {
-                    $types = [];
-                    foreach ($products as $p) {
-                        $types[$p['type']] = true;
+                $totalUsers = !empty($users) ? count($users) : 0;
+                $activeUsers = 0;
+                $adminUsers = 0;
+                if (!empty($users)) {
+                    foreach ($users as $u) {
+                        if (isset($u['status']) && $u['status'] == 'active') {
+                            $activeUsers++;
+                        }
+                        if (isset($u['role']) && $u['role'] == 'admin') {
+                            $adminUsers++;
+                        }
                     }
-                    $typeCount = count($types);
                 }
             ?>
 
             <div class="stat-row">
                 <div class="stat-crate green-accent">
-                    <div class="stat-label">Tổng sản phẩm</div>
-                    <div class="stat-value"><?= $totalProducts ?></div>
+                    <div class="stat-label">Tổng người dùng</div>
+                    <div class="stat-value"><?= $totalUsers ?></div>
                 </div>
                 <div class="stat-crate papaya-accent">
-                    <div class="stat-label">Loại sản phẩm</div>
-                    <div class="stat-value"><?= $typeCount ?></div>
+                    <div class="stat-label">Người dùng hoạt động</div>
+                    <div class="stat-value"><?= $activeUsers ?></div>
                 </div>
                 <div class="stat-crate">
-                    <div class="stat-label">Cập nhật gần nhất</div>
-                    <div class="stat-value" style="font-size: 18px;"><?= date('d/m/Y') ?></div>
+                    <div class="stat-label">Quản trị viên</div>
+                    <div class="stat-value"><?= $adminUsers ?></div>
                 </div>
             </div>
 
             <div class="card-panel">
                 <div class="card-panel-head">
-                    <h2>Danh sách sản phẩm</h2>
+                    <h2>Danh sách người dùng</h2>
                     <div class="search-box">
                         <span class="icon">🔍</span>
-                        <input type="text" id="productSearch" placeholder="Tìm theo tên sản phẩm...">
+                        <input type="text" id="userSearch" placeholder="Tìm theo tên hoặc email...">
                     </div>
                 </div>
 
-                <?php if (!empty($products)) : ?>
+                <?php if (!empty($users)) : ?>
                     <div class="table-responsive">
-                        <table class="product-table" id="productTable">
+                        <table class="user-table" id="userTable">
                             <thead>
                                 <tr>
-                                    <th style="width: 12%;">Mã SP</th>
-                                    <th style="width: 40%;">Tên sản phẩm</th>
-                                    <th style="width: 20%;">Loại</th>
-                                    <th style="width: 28%;">Thao tác</th>
+                                    <th style="width: 12%;">Mã KH</th>
+                                    <th style="width: 25%;">Tên người dùng</th>
+                                    <th style="width: 25%;">Email</th>
+                                    <th style="width: 15%;">Vai trò</th>
+                                    <th style="width: 23%;">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($products as $product) : ?>
+                                <?php foreach ($users as $user) : ?>
                                     <tr>
-                                        <td class="product-id">#<?= $product['product_id'] ?></td>
-                                        <td class="product-name"><?= htmlspecialchars($product['name']) ?></td>
-                                        <td><span class="type-badge"><?= htmlspecialchars($product['type']) ?></span></td>
+                                        <td class="user-id">#<?= $user['id'] ?? $user['user_id'] ?? '' ?></td>
+                                        <td class="user-name"><?= htmlspecialchars($user['name'] ?? $user['fullname'] ?? '') ?></td>
+                                        <td class="user-email"><?= htmlspecialchars($user['email'] ?? '') ?></td>
+                                        <td>
+                                            <?php 
+                                                $role = $user['role'] ?? 'user';
+                                                $roleBadgeClass = $role == 'admin' ? 'admin' : '';
+                                                $roleText = $role == 'admin' ? 'Quản trị viên' : 'Khách hàng';
+                                            ?>
+                                            <span class="role-badge <?= $roleBadgeClass ?>"><?= htmlspecialchars($roleText) ?></span>
+                                        </td>
                                         <td>
                                             <div class="row-actions">
-                                                <a href="<?= BASE_URL_ADMIN ?>?act=product-edit&product_id=<?= $product['product_id'] ?>"
+                                                <a href="<?= BASE_URL_ADMIN ?>?act=user-edit&user_id=<?= $user['id'] ?? $user['user_id'] ?? '' ?>"
                                                    class="action-edit">✏️ Sửa</a>
-                                                <a href="<?= BASE_URL_ADMIN ?>?act=product-delete&product_id=<?= $product['product_id'] ?>"
+                                                <a href="<?= BASE_URL_ADMIN ?>?act=user-delete&user_id=<?= $user['id'] ?? $user['user_id'] ?? '' ?>"
                                                    class="action-delete"
-                                                   onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này?')">🗑️ Xóa</a>
+                                                   onclick="return confirm('Bạn có chắc muốn xóa người dùng này?')">🗑️ Xóa</a>
                                             </div>
                                         </td>
                                     </tr>
@@ -492,9 +530,9 @@
                     </div>
                 <?php else : ?>
                     <div class="empty-state">
-                        <div class="stamp">🧺</div>
-                        <p>Chưa có sản phẩm nào trong gian hàng.</p>
-                        <a href="<?= BASE_URL_ADMIN ?>?act=product-create" class="btn-add">+ Thêm sản phẩm đầu tiên</a>
+                        <div class="stamp">👤</div>
+                        <p>Chưa có người dùng nào trong hệ thống.</p>
+                        <a href="<?= BASE_URL_ADMIN ?>?act=user-create" class="btn-add">+ Thêm người dùng đầu tiên</a>
                     </div>
                 <?php endif; ?>
             </div>
@@ -502,16 +540,22 @@
     </div>
 
     <script>
-        const searchInput = document.getElementById('productSearch');
-        if (searchInput) {
-            searchInput.addEventListener('input', function () {
-                const term = this.value.trim().toLowerCase();
-                document.querySelectorAll('#productTable tbody tr').forEach(function (row) {
-                    const name = row.querySelector('.product-name').textContent.toLowerCase();
-                    row.style.display = name.includes(term) ? '' : 'none';
-                });
+        // Search functionality
+        document.getElementById('userSearch').addEventListener('keyup', function() {
+            const searchTerm = this.value.toLowerCase();
+            const tableRows = document.querySelectorAll('#userTable tbody tr');
+            
+            tableRows.forEach(row => {
+                const name = row.querySelector('.user-name').textContent.toLowerCase();
+                const email = row.querySelector('.user-email').textContent.toLowerCase();
+                
+                if (name.includes(searchTerm) || email.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
             });
-        }
+        });
     </script>
 </body>
 
