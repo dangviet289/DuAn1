@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 520" role="img" aria-labelledby="title desc">
+  <title id="title">MacBook Air 13 M3</title>
+  <desc id="desc">Minh họa laptop màu xám với màn hình chuyển sắc tím xanh.</desc>
+  <defs>
+    <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#312e81"/>
+      <stop offset="0.5" stop-color="#7c3aed"/>
+      <stop offset="1" stop-color="#22d3ee"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d7dce5"/>
+      <stop offset="1" stop-color="#8e96a4"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0f172a" flood-opacity=".2"/>
+    </filter>
+  </defs>
+  <rect width="700" height="520" rx="42" fill="#f8fafc"/>
+  <g filter="url(#shadow)">
+    <rect x="132" y="62" width="436" height="302" rx="20" fill="#6b7280"/>
+    <rect x="145" y="75" width="410" height="276" rx="10" fill="url(#screen)"/>
+    <circle cx="350" cy="68" r="3" fill="#111827"/>
+    <path d="M88 374h524l-55 58H143z" fill="url(#body)"/>
+    <path d="M88 374h524l-17 20H105z" fill="#e5e7eb"/>
+    <path d="M293 385h114l-13 19h-88z" fill="#aeb5c1"/>
+    <path d="M143 432h414c-9 10-22 15-38 15H181c-16 0-29-5-38-15z" fill="#727b88"/>
+  </g>
+  <circle cx="462" cy="185" r="76" fill="#fff" opacity=".08"/>
+  <path d="M180 310c80-100 167-118 260-53 38 27 73 31 106 14v80H145v-16c12-2 23-10 35-25z" fill="#fff" opacity=".12"/>
+</svg>
