@@ -416,7 +416,7 @@
                 <div>
                     <div class="eyebrow">Quản trị cửa hàng</div>
                     <h1>Quản lý sản phẩm</h1>
-                    <p>Theo dõi, chỉnh sửa và bổ sung hoa quả đang bán trên gian hàng.</p>
+                    <p>Theo dõi, chỉnh sửa và bổ sung sản phẩm đang bán trên gian hàng.</p>
                 </div>
                 <a href="<?= BASE_URL_ADMIN ?>?act=product-create" class="btn-add">
                     + Thêm sản phẩm mới
@@ -424,12 +424,13 @@
             </div>
 
             <?php
+            
                 $totalProducts = !empty($products) ? count($products) : 0;
                 $typeCount = 0;
                 if (!empty($products)) {
                     $types = [];
                     foreach ($products as $p) {
-                        $types[$p['type']] = true;
+                        $types[$p['type'] ?? ''] = true;
                     }
                     $typeCount = count($types);
                 }
@@ -473,14 +474,14 @@
                             <tbody>
                                 <?php foreach ($products as $product) : ?>
                                     <tr>
-                                        <td class="product-id">#<?= $product['product_id'] ?></td>
-                                        <td class="product-name"><?= htmlspecialchars($product['name']) ?></td>
-                                        <td><span class="type-badge"><?= htmlspecialchars($product['type']) ?></span></td>
+                                        <td class="product-id">#<?= $product['product_id'] ?? $product['id'] ?? '' ?></td>
+                                        <td class="product-name"><?= htmlspecialchars($product['name'] ?? '') ?></td>
+                                        <td><span class="type-badge"><?= htmlspecialchars($product['type'] ?? '') ?></span></td>
                                         <td>
                                             <div class="row-actions">
-                                                <a href="<?= BASE_URL_ADMIN ?>?act=product-edit&product_id=<?= $product['product_id'] ?>"
+                                                <a href="<?= BASE_URL_ADMIN ?>?act=product-edit&product_id=<?= $product['product_id'] ?? $product['id'] ?? '' ?>"
                                                    class="action-edit">✏️ Sửa</a>
-                                                <a href="<?= BASE_URL_ADMIN ?>?act=product-delete&product_id=<?= $product['product_id'] ?>"
+                                                <a href="<?= BASE_URL_ADMIN ?>?act=product-delete&product_id=<?= $product['product_id'] ?? $product['id'] ?? '' ?>"
                                                    class="action-delete"
                                                    onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này?')">🗑️ Xóa</a>
                                             </div>
